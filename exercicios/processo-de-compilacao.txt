@@ -1,0 +1,21 @@
+### Chama o assembler com preparando o arquivo pra debug "-g"
+riscv64-unknown-elf-as -march=rv32i -mabi=ilp32 -g ex1.s -o ex1.o
+
+
+### Chama o linker
+riscv64-unknown-elf-ld -m elf32lriscv ex1.o -o ex1.exe
+
+### Chama o emulador e roda o programa 
+qemu-riscv32 -g 1234 ex1.exe
+
+vc precisa abrir o debuggerr em outro terminal:
+gdb
+
+entao conecte com a porta do emulador riscv32:
+target remote :1234
+
+avance de instrucao no debugger:
+step "e aperta enter"
+
+vc pode ver informacoes dos registradores:
+info register "nomeRegstrador"
